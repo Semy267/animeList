@@ -1,7 +1,6 @@
 import AnimeList from "@/components/animeList";
 import Hero from "@/components/hero";
 import Navbar from "@/components/navbar";
-import { getTopAnime } from "@/lib/api";
 
 export default function Home() {
   return (
@@ -13,7 +12,7 @@ export default function Home() {
         linkHref="/populer"
         fetchType="popular"
       />
-      <AnimeList title="Anime Terbaru" linkHref="/terbaru" fetchType="recent" />
+      <AnimeList title="Anime Terbaru" linkHref="/anime/current" fetchType="recent" />
     </div>
   );
 }

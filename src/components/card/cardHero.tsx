@@ -13,6 +13,8 @@ import Autoplay from "embla-carousel-autoplay";
 import { Button } from "../ui/button";
 import { Heart, Star } from "lucide-react";
 import { Anime } from "@/types/anime";
+import { slugify } from "@/lib/slugify";
+import { useRouter } from "next/navigation";
 
 type Props = {
   animes: Anime[];
@@ -23,6 +25,13 @@ export function CardHero({ animes, setActiveIndex }: Props) {
   const plugin = React.useRef(
     Autoplay({ delay: 2000, stopOnInteraction: true })
   );
+  const router = useRouter();
+
+      const HandleDetail = (anime: Anime) => {
+        const slug = slugify(anime.title);
+        const id = anime.mal_id;
+        router.push(`/anime/${id}?title=${slug}`);
+      };
 
   const handleSelect = (embla: any) => {
     const index = embla.selectedScrollSnap();
@@ -47,7 +56,7 @@ export function CardHero({ animes, setActiveIndex }: Props) {
       className="w-full h-full max-h-[80vh] md:max-h-[500px]"
     >
       <CarouselContent>
-        {animes.map((anime, index) => (
+        {animes.map((anime) => (
           <CarouselItem key={anime.mal_id} className="basis-full">
             <div className="p-1">
               <Card className="bg-transparent border-none shadow-none">
@@ -81,7 +90,7 @@ export function CardHero({ animes, setActiveIndex }: Props) {
 
                     <div className="flex gap-5 items-center">
                       <Button>Watch Now</Button>
-                      <Button variant={"outline"}>More Info</Button>
+                      <Button variant={"outline"} onClick={() => HandleDetail(anime)}>More Info</Button>
                     </div>
                   </div>
                 </CardContent>
